@@ -121,7 +121,7 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-10">
       <div className="container mx-auto px-4">
         <header className="mb-10 text-center">
-          <h1 className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">動画進捗管理アプリ</h1>
+          <h1 className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">CBT用動画進捗管理アプリ</h1>
           <p className="text-gray-600 dark:text-gray-400">動画の進捗を管理し、試験日までの視聴計画を立てましょう</p>
         </header>
         

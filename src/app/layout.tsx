@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "動画進捗管理アプリ",
+  title: "CBT用動画進捗管理アプリ",
   description: "動画の進捗管理と視聴時間計算を行うアプリケーション",
 };
 
