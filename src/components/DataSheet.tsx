@@ -56,11 +56,11 @@ export default function DataSheet({ videos, onToggleComplete, onDeleteVideo }: D
         <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
           <thead className="bg-gray-100 dark:bg-gray-700">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">セクション</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">サブセクション</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">進捗</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">動画タイトル</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">動画時間</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">進捗</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">セクション</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">サブセクション</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">操作</th>
             </tr>
           </thead>
@@ -69,6 +69,17 @@ export default function DataSheet({ videos, onToggleComplete, onDeleteVideo }: D
               Object.entries(subsections).map(([subsection, videos]) => (
                 videos.map((video, index) => (
                   <tr key={video.id} className={index % 2 === 0 ? 'bg-gray-50 dark:bg-gray-700' : ''}>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <button
+                        onClick={() => handleToggleComplete(video.id)}
+                        className="w-8 h-8 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                        title="進捗状態を切り替え"
+                      >
+                        {video.completed ? '✅' : ''}
+                      </button>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">{video.title}</td>
+                    <td className="px-6 py-4 whitespace-nowrap font-mono">{video.duration}</td>
                     {index === 0 && (
                       <td 
                         className="px-6 py-4 whitespace-nowrap font-medium text-gray-700 dark:text-gray-300" 
@@ -85,17 +96,6 @@ export default function DataSheet({ videos, onToggleComplete, onDeleteVideo }: D
                         {subsection}
                       </td>
                     )}
-                    <td className="px-6 py-4 whitespace-nowrap">{video.title}</td>
-                    <td className="px-6 py-4 whitespace-nowrap font-mono">{video.duration}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <button
-                        onClick={() => handleToggleComplete(video.id)}
-                        className="w-8 h-8 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                        title="進捗状態を切り替え"
-                      >
-                        {video.completed ? '✅' : ''}
-                      </button>
-                    </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <button
                         onClick={() => handleDelete(video.id)}
