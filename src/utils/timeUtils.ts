@@ -20,6 +20,21 @@ export function secondsToTime(totalSeconds: number): string {
 }
 
 /**
+ * 秒数をhh:mm:ss形式の文字列に変換する
+ */
+export function secondsToTimeHMS(totalSeconds: number): string {
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  
+  return [
+    hours.toString().padStart(2, '0'),
+    minutes.toString().padStart(2, '0'),
+    seconds.toString().padStart(2, '0')
+  ].join(':');
+}
+
+/**
  * 日付文字列から残り日数を計算する
  */
 export function calculateRemainingDays(examDateStr: string): number {
