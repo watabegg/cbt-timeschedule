@@ -122,8 +122,8 @@ export default function DataSheet({ videos, onToggleComplete, onDeleteVideo }: D
     
     const title = video.completed ? '完了状態の変更' : '完了としてマーク';
     const message = video.completed 
-      ? 'この動画を未完了に戻しますか？' 
-      : 'この動画を完了としてマークしますか？';
+      ? 'この動画見終わってないの！？' 
+      : 'この動画見終わったの！？やるやん';
     
     setDialogState({
       isOpen: true,

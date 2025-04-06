@@ -121,8 +121,8 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-10">
       <div className="container mx-auto px-4">
         <header className="mb-10 text-center">
-          <h1 className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">CBT用動画進捗管理アプリ</h1>
-          <p className="text-gray-600 dark:text-gray-400">動画の進捗を管理し、試験日までの視聴計画を立てましょう</p>
+          <h1 className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">ひとみちゃん用CBT動画進捗管理アプリ</h1>
+          <p className="text-gray-600 dark:text-gray-400">CBTマジ頑張ってね</p>
         </header>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-7xl mx-auto">
@@ -145,7 +145,7 @@ export default function Home() {
         </div>
         
         <footer className="mt-16 text-center text-sm text-gray-500 dark:text-gray-400">
-          <p>© {new Date().getFullYear()} 動画進捗管理アプリ</p>
+          <p>© {new Date().getFullYear()} watabegg</p>
         </footer>
       </div>
     </div>
