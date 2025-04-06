@@ -11,12 +11,12 @@ interface DataSheetProps {
   onDeleteVideo: (id: string) => void;
 }
 
-type SortField = 'title' | 'duration' | 'section' | 'subsection' | 'completed';
+type SortField = 'title' | 'duration' | 'section' | 'subsection' | 'completed' | 'id';
 type SortDirection = 'asc' | 'desc';
 type FilterType = 'all' | 'completed' | 'incomplete';
 
 export default function DataSheet({ videos, onToggleComplete, onDeleteVideo }: DataSheetProps) {
-  const [sortField, setSortField] = useState<SortField>('title');
+  const [sortField, setSortField] = useState<SortField>('id');
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
   const [filterType, setFilterType] = useState<FilterType>('all');
   const [dialogState, setDialogState] = useState<{
@@ -63,6 +63,11 @@ export default function DataSheet({ videos, onToggleComplete, onDeleteVideo }: D
         case 'completed':
           comparison = (a.completed === b.completed) ? 0 : a.completed ? 1 : -1;
           break;
+        case 'id':
+          comparison = a.id.localeCompare(b.id);
+          break;
+        default:
+          comparison = 0;
       }
       
       return sortDirection === 'asc' ? comparison : -comparison;
@@ -268,6 +273,12 @@ export default function DataSheet({ videos, onToggleComplete, onDeleteVideo }: D
               >
                 動画時間{getSortIcon('duration')}
               </th>
+              <th
+                className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600"
+                onClick={() => handleSort('id')}
+              >
+                作成日{getSortIcon('id')}
+              </th>
               <th 
                 className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600"
                 onClick={() => handleSort('section')}
@@ -299,6 +310,7 @@ export default function DataSheet({ videos, onToggleComplete, onDeleteVideo }: D
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">{video.title}</td>
                 <td className="px-6 py-4 whitespace-nowrap font-mono">{video.duration}</td>
+                <td className="px-6 py-4 whitespace-nowrap font-mono">{new Date(Number(video.id)).toLocaleString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).replace(/\//g, '/')}</td>
                 <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-700 dark:text-gray-300">{video.section}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-gray-600 dark:text-gray-400">{video.subsection}</td>
                 <td className="px-6 py-4 whitespace-nowrap">
