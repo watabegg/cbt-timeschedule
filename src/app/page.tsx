@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import InputSheet from '../components/InputSheet';
 import DataSheet from '../components/DataSheet';
+import ConfirmDialog from '../components/ConfirmDialog';
 import { VideoData } from '../utils/types';
 import { 
   timeToSeconds, 
@@ -14,7 +15,8 @@ import {
   saveVideoData, 
   getVideoData, 
   saveExamDate, 
-  getExamDate 
+  getExamDate,
+  clearAllData
 } from '../utils/storage';
 
 export default function Home() {
@@ -22,6 +24,7 @@ export default function Home() {
   const [examDate, setExamDate] = useState('');
   const [dailyViewingTime, setDailyViewingTime] = useState('');
   const [isClient, setIsClient] = useState(false);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
   // クライアントサイドでのみ実行されるようにする
   useEffect(() => {
@@ -112,6 +115,15 @@ export default function Home() {
     }
   }, [videos, calculateViewingTime]);
 
+  // 全データ削除処理
+  const handleClearAllData = useCallback(() => {
+    clearAllData();
+    setVideos([]);
+    setExamDate('');
+    setDailyViewingTime('');
+    setShowConfirmDialog(false); // ダイアログを閉じる
+  }, []);
+
   // クライアントサイドでのみレンダリング
   if (!isClient) {
     return null;
@@ -141,9 +153,28 @@ export default function Home() {
               onToggleComplete={handleToggleComplete}
               onDeleteVideo={handleDeleteVideo}
             />
+            <div className="mt-6 text-right">
+              <button
+                onClick={() => setShowConfirmDialog(true)}
+                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
+              >
+                全データ削除
+              </button>
+            </div>
           </div>
         </div>
         
+        {showConfirmDialog && (
+          <ConfirmDialog
+            isOpen={showConfirmDialog}
+            title="全データ削除の確認"
+            message="本当にすべてのデータを削除しますか？この操作は元に戻せません。"
+            onConfirm={handleClearAllData}
+            onCancel={() => setShowConfirmDialog(false)}
+            type="danger" // 削除操作なので danger タイプを指定
+          />
+        )}
+
         <footer className="mt-16 text-center text-sm text-gray-500 dark:text-gray-400">
           <p>© {new Date().getFullYear()} watabegg</p>
         </footer>

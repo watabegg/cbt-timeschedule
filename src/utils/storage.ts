@@ -41,3 +41,13 @@ export function getExamDate(): string {
   }
   return '';
 }
+
+/**
+ * 全てのデータをローカルストレージから削除する
+ */
+export function clearAllData(): void {
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem(VIDEO_DATA_KEY);
+    localStorage.removeItem(EXAM_DATE_KEY);
+  }
+}
