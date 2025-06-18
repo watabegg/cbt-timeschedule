@@ -7,8 +7,8 @@ import ConfirmDialog from './ConfirmDialog'
 
 interface DataSheetProps {
 	videos: VideoData[]
-	onToggleComplete: (id: string) => void
-	onDeleteVideo: (id: string) => void
+	onToggleComplete: (id: number) => void
+	onDeleteVideo: (id: number) => void
 }
 
 type SortField =
@@ -74,7 +74,7 @@ export default function DataSheet({
 					comparison = a.completed === b.completed ? 0 : a.completed ? 1 : -1
 					break
 				case 'id':
-					comparison = a.id.localeCompare(b.id)
+					comparison = a.id - b.id
 					break
 				default:
 					comparison = 0
@@ -130,7 +130,7 @@ export default function DataSheet({
 	}, [filteredVideos])
 
 	const handleToggleComplete = useCallback(
-		(id: string) => {
+		(id: number) => {
 			const video = videos.find((v) => v.id === id)
 			if (!video) return
 
@@ -154,7 +154,7 @@ export default function DataSheet({
 	)
 
 	const handleDelete = useCallback(
-		(id: string) => {
+		(id: number) => {
 			const video = videos.find((v) => v.id === id)
 			if (!video) return
 

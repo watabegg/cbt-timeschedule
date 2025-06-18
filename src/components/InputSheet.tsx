@@ -3,10 +3,14 @@
 import { useState, useCallback } from 'react'
 import { VideoData, InputFormData } from '../utils/types'
 import { isValidTimeFormat } from '../utils/timeUtils'
-import { saveExamDate, getExamDate } from '../utils/storage'
 
 interface InputSheetProps {
-	onAddVideo: (video: VideoData) => void
+	onAddVideo: (
+		video: Omit<
+			VideoData,
+			'id' | 'completed' | 'deleted' | 'createdAt' | 'updatedAt'
+		>,
+	) => void
 	examDate: string
 	onExamDateChange: (date: string) => void
 	dailyViewingTime: string
@@ -62,13 +66,11 @@ export default function InputSheet({
 			}
 
 			// 新しい動画データを作成
-			const newVideo: VideoData = {
-				id: Date.now().toString(),
+			const newVideo = {
 				section: formData.section,
 				subsection: formData.subsection,
 				title: formData.title,
 				duration: formData.duration,
-				completed: false,
 			}
 
 			// 親コンポーネントに通知
